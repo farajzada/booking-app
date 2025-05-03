@@ -1,4 +1,4 @@
 package az.edu.turing.bookingapp.config;
 
-public class LoggerConfig {
+public class LoggerAspect {
 }

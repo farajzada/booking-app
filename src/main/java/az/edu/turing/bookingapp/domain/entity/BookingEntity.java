@@ -18,10 +18,11 @@ public class BookingEntity {
     private Long id;
 
     @Column(name = "flight_id")
-    private Long flightId;
+    @JoinColumn(name = "flight_id")
+    private FlightEntity flightId;
 
     @Column(name = "passenger_id")
-    private Long passengerId;
+    private PassengerEntity passengerId;
 
     @Column(name = "number_of_seats")
     private Long numberOfSeats;

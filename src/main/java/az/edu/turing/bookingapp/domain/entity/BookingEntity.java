@@ -17,12 +17,14 @@ public class BookingEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "flight_id")
+    @ManyToOne
     @JoinColumn(name = "flight_id")
-    private FlightEntity flightId;
+    private FlightEntity flight;
 
-    @Column(name = "passenger_id")
-    private PassengerEntity passengerId;
+    @ManyToOne
+    @JoinColumn(name = "passenger_id")
+    private PassengerEntity passenger;
+
 
     @Column(name = "number_of_seats")
     private Long numberOfSeats;

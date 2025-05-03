@@ -1,0 +1,31 @@
+package az.edu.turing.bookingapp.domain.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Data
+@Table(name = "flights")
+@AllArgsConstructor
+@NoArgsConstructor
+public class FlightEntity {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+
+    @Column(name = "origin", nullable = false)
+    private String origin;
+
+    private String destination;
+
+    @Column(name = "available_seats")
+    private Long availableSeats;
+    private LocalDateTime timestamp;
+
+}

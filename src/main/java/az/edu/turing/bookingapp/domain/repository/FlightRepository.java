@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface FlightDao extends JpaRepository<FlightEntity, Long> {
+public interface FlightRepository extends JpaRepository<FlightEntity, Long> {
     @Query("SELECT f FROM FlightEntity f WHERE f.timestamp BETWEEN :now AND :nextDay")
     List<FlightEntity> findFlightsInNext24Hours(
             @Param("now") LocalDateTime now,

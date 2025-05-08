@@ -1,7 +1,11 @@
 package az.edu.turing.bookingapp.service.impl;
 
 import az.edu.turing.bookingapp.domain.entity.BookingEntity;
+import az.edu.turing.bookingapp.domain.entity.FlightEntity;
+import az.edu.turing.bookingapp.domain.entity.PassengerEntity;
 import az.edu.turing.bookingapp.domain.repository.BookingRepository;
+import az.edu.turing.bookingapp.domain.repository.FlightRepository;
+import az.edu.turing.bookingapp.domain.repository.PassengerRepository;
 import az.edu.turing.bookingapp.exception.ResourceNotFoundException;
 import az.edu.turing.bookingapp.mapper.BookingMapper;
 import az.edu.turing.bookingapp.model.request.BookingRequest;
@@ -17,8 +21,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
-    private final BookingService bookingService;
     private final BookingMapper bookingMapper;
+    private final FlightRepository flightRepository;
+    private final PassengerRepository passengerRepository;
 
     @Override
     public List<BookingResponse> findAll() {
@@ -30,20 +35,27 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingResponse findByID(Long id) {
-        BookingEntity bookingEntity=bookingRepository.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("booking not found wit id: "+id));
+        BookingEntity bookingEntity = bookingRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("booking not found wit id: " + id));
         return bookingMapper.toDto(bookingEntity);
 
     }
 
     @Override
     public BookingResponse saveBooking(BookingRequest bookingRequest) {
-//          BookingEntity bookingEntity=new BookingEntity();
-//        bookingEntity.setFlight(bookingRequest.getFlightId());
-//        bookingEntity.setNumberOfSeats(bookingRequest.getNumberOfSeats());
-//        bookingEntity.setP
-        return null;
+        FlightEntity flight = flightRepository.findById(bookingRequest.getFlightId())
+                .orElseThrow(() -> new ResourceNotFoundException("Flight not found with id: " + bookingRequest.getFlightId()));
 
+        PassengerEntity passenger = passengerRepository.findById(bookingRequest.getPassengerId())
+                .orElseThrow(() -> new ResourceNotFoundException("Passenger not found with id: " + bookingRequest.getPassengerId()));
+
+        BookingEntity bookingEntity = new BookingEntity();
+        bookingEntity.setNumberOfSeats(bookingRequest.getNumberOfSeats());
+        bookingEntity.setFlight(flight);
+        bookingEntity.setPassenger(passenger);
+
+        BookingEntity savedBooking = bookingRepository.save(bookingEntity);
+        return bookingMapper.toDto(savedBooking);
     }
 
     @Override

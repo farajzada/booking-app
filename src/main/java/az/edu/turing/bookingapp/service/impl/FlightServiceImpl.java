@@ -6,6 +6,7 @@ import az.edu.turing.bookingapp.mapper.FlightMapper;
 import az.edu.turing.bookingapp.model.request.FlightRequest;
 import az.edu.turing.bookingapp.model.response.FlightResponse;
 import az.edu.turing.bookingapp.service.FlightService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,17 +15,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class FlightServiceImpl implements FlightService {
     private final FlightRepository flightDao;
     private final FlightMapper flightMapper;
 
-    public FlightServiceImpl(FlightRepository flightDao, FlightMapper flightMapper) {
-        this.flightDao = flightDao;
-        this.flightMapper = flightMapper;
-    }
 
     @Override
     public List<FlightResponse> getAllFlights() {

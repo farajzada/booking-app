@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public class PassengerServiceImpl implements PassengerService {
     private  final PassengerRepository passengerRepository;
     private final PassengerMapper passengerMapper ;
-    private final PassengerService passengerService;
 
 
     @Override
@@ -41,7 +40,8 @@ public class PassengerServiceImpl implements PassengerService {
        passengerEntity.setName(passengerRequest.getName());
        passengerEntity.setSurname(passengerRequest.getSurname());
        passengerEntity.setPassportNumber(passengerRequest.getPassportNumber());
-       return passengerMapper.toDto(passengerEntity);
+        PassengerEntity saved = passengerRepository.save(passengerEntity);
+        return passengerMapper.toDto(saved);
     }
 
     @Override

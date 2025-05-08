@@ -29,6 +29,6 @@ public class PassengerEntity {
 
     @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<PassengerEntity> passengerEntities;
+    private List<BookingEntity> bookingEntityList;
 
 }

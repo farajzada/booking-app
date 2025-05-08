@@ -1,4 +1,16 @@
 package az.edu.turing.bookingapp.model.response;
 
+import jakarta.persistence.Column;
+
+import java.time.LocalDateTime;
+
 public class FlightResponse {
+    private Long id;
+
+    private String origin;
+
+    private String destination;
+
+    private Long availableSeats;
+    private LocalDateTime timestamp;
 }

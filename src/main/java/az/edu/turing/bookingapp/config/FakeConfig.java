@@ -11,6 +11,5 @@ public class FakeConfig {
     public CommandLineRunner fakeData(ExampleService exampleService) {
         return args ->
                 exampleService.sayHello();
-
     }
 }

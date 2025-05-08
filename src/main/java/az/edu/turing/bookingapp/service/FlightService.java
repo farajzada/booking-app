@@ -4,6 +4,8 @@ import az.edu.turing.bookingapp.domain.entity.FlightEntity;
 
 import java.util.List;
 
+
+
 public interface FlightService {
     List<FlightEntity> getAllFlights();
     FlightEntity getFlightById(Long id);

@@ -1,7 +1,7 @@
 package az.edu.turing.bookingapp.service.impl;
 
 import az.edu.turing.bookingapp.domain.entity.FlightEntity;
-import az.edu.turing.bookingapp.domain.repository.FlightDao;
+import az.edu.turing.bookingapp.domain.repository.FlightRepository;
 import az.edu.turing.bookingapp.service.FlightService;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +9,9 @@ import java.util.List;
 
 @Service
 public class FlightServiceImpl implements FlightService {
-    private final FlightDao flightDao;
+    private final FlightRepository flightDao;
 
-    public FlightServiceImpl(FlightDao flightDao) {
+    public FlightServiceImpl(FlightRepository flightDao) {
         this.flightDao = flightDao;
     }
 

@@ -7,6 +7,8 @@ import az.edu.turing.bookingapp.model.response.FlightResponse;
 import java.time.LocalDate;
 import java.util.List;
 
+
+
 public interface FlightService {
     List<FlightResponse> getAllFlights();
     FlightResponse getFlightById(Long id);

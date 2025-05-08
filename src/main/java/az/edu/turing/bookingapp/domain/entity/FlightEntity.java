@@ -1,11 +1,13 @@
 package az.edu.turing.bookingapp.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,7 +20,6 @@ public class FlightEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(name = "origin", nullable = false)
     private String origin;
 
@@ -27,5 +28,9 @@ public class FlightEntity {
     @Column(name = "available_seats")
     private Long availableSeats;
     private LocalDateTime timestamp;
+
+    @OneToMany(mappedBy = "flight",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<BookingEntity> bookingEntityList;
 
 }

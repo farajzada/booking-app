@@ -2,14 +2,14 @@ package az.edu.turing.bookingapp.mapper;
 
 import java.util.List;
 
-public interface EntityMapper<D, E> {
+public interface EntityMapper<E, D> {
 
-    E toEntity(D dto);
+    E toEnt(D d);
 
     List<E> toEntity(List<D> dtoList);
 
-    D toDto(E entity);
+    D toDto(E e);
 
-    List<D> toDto(List<E> entityList);
+    List<D> toDtoList(List<E> entityList);
 
 }

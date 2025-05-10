@@ -3,6 +3,7 @@ package az.edu.turing.bookingapp.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Table(name = "flights")
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class FlightEntity {
     @Id
     @Column(name = "id")

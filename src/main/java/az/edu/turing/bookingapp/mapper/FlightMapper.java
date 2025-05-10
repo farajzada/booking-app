@@ -2,24 +2,42 @@ package az.edu.turing.bookingapp.mapper;
 
 import az.edu.turing.bookingapp.domain.entity.FlightEntity;
 import az.edu.turing.bookingapp.model.response.FlightResponse;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
-public interface FlightMapper extends EntityMapper<FlightResponse, FlightEntity> {
-
-    FlightMapper INSTANCE = Mappers.getMapper(FlightMapper.class);
+@Component
+public class FlightMapper implements EntityMapper<FlightEntity,FlightResponse> {
     @Override
-    FlightEntity toEntity(FlightResponse flightDto);
+    public FlightEntity toEnt(FlightResponse flightResponse) {
+        return FlightEntity.builder()
+                .id(flightResponse.getId())
+                .availableSeats(flightResponse.getAvailableSeats())
+                .origin(flightResponse.getOrigin())
+                .destination(flightResponse.getDestination())
+                .timestamp(flightResponse.getTimestamp())
+                .build();
+    }
 
     @Override
-    List<FlightEntity> toEntity(List<FlightResponse> flightDtoList);
+    public List<FlightEntity> toEntity(List<FlightResponse> dtoList) {
+        return List.of();
+    }
 
     @Override
-    FlightResponse toDto(FlightEntity flight);
+    public FlightResponse toDto(FlightEntity flightEntity) {
+        return FlightResponse.builder()
+                .id(flightEntity.getId())
+                .availableSeats(flightEntity.getAvailableSeats())
+                .origin(flightEntity.getOrigin())
+                .destination(flightEntity.getDestination())
+                .timestamp(flightEntity.getTimestamp()).
+                build();
+    }
 
     @Override
-    List<FlightResponse> toDto(List<FlightEntity> flightList);
+    public List<FlightResponse> toDtoList(List<FlightEntity> entityList) {
+        return List.of();
+    }
+
 }

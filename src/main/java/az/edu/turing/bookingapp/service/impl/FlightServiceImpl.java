@@ -25,7 +25,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<FlightResponse> getAllFlights() {
-        return flightMapper.toDto(flightDao.findAll());
+        return flightDao.findAll().stream().map(flightMapper::toDto).toList();
     }
 
     @Override
@@ -72,16 +72,17 @@ public class FlightServiceImpl implements FlightService {
     public List<FlightResponse> getFlightsInNext24Hours() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime next24h = now.plusHours(24);
-        return flightMapper.toDto(flightDao.findFlightsInNext24Hours(now, next24h));
+        return flightDao.findFlightsInNext24Hours(now, next24h).stream().
+                map(flightMapper::toDto).toList();
     }
 
     @Override
     public List<FlightResponse> searchFlights(String toCity, LocalDate date, int numberOfPassenger) {
         LocalDateTime start = date.atStartOfDay();
         LocalDateTime end = date.atTime(LocalTime.MAX);
-        return flightMapper.toDto(
-                flightDao.searchFlights(toCity, start, end, numberOfPassenger)
-        );
+        return flightDao.searchFlights(toCity, start, end, numberOfPassenger).stream()
+                .map(flightMapper::toDto).toList();
+
     }
 
     @Override

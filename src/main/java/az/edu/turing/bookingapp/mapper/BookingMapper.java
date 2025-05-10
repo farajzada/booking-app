@@ -9,11 +9,11 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring")
-public interface BookingMapper extends EntityMapper<BookingResponse, BookingEntity> {
+public interface BookingMapper extends EntityMapper<BookingEntity,BookingResponse> {
 
     BookingMapper INSTANCE = Mappers.getMapper(BookingMapper.class);
     @Override
-    BookingEntity toEntity(BookingResponse studentDto);
+    BookingEntity toEnt(BookingResponse studentDto);
 
     @Override
     List<BookingEntity> toEntity(List<BookingResponse> studentDtoList);
@@ -22,5 +22,5 @@ public interface BookingMapper extends EntityMapper<BookingResponse, BookingEnti
     BookingResponse toDto(BookingEntity student);
 
     @Override
-    List<BookingResponse> toDto(List<BookingEntity> studentList);
+    List<BookingResponse> toDtoList(List<BookingEntity> studentList);
 }

@@ -8,17 +8,20 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+
 @Mapper(componentModel = "spring")
-public interface PassengerMapper extends EntityMapper<PassengerResponse, PassengerEntity>{
+public interface PassengerMapper extends EntityMapper<PassengerResponse, PassengerEntity> {
+
     PassengerMapper INSTANCE = Mappers.getMapper(PassengerMapper.class);
+    @Override
+    PassengerEntity toEntity(PassengerResponse studentDto);
 
     @Override
-     PassengerEntity toEnt(PassengerResponse passengerResponse);
-    @Override
-    List<PassengerEntity> toEntList(List<PassengerResponse>passengerResponseList);
-    @Override
-    PassengerResponse toDto (PassengerEntity passengerEntity);
-    @Override
-    List<PassengerResponse>toDtoList(List<PassengerEntity>passengerEntityList);
+    List<PassengerEntity> toEntity(List<PassengerResponse> studentDtoList);
 
+    @Override
+    PassengerResponse toDto(PassengerEntity student);
+
+    @Override
+    List<PassengerResponse> toDto(List<PassengerEntity> studentList);
 }

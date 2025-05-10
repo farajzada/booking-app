@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: flight_booking_app
     ports:
-      - "8888:8888"
+      - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: docker
     volumes:

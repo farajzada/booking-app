@@ -7,17 +7,20 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+
 @Mapper(componentModel = "spring")
 public interface BookingMapper extends EntityMapper<BookingResponse, BookingEntity> {
+
     BookingMapper INSTANCE = Mappers.getMapper(BookingMapper.class);
+    @Override
+    BookingEntity toEntity(BookingResponse studentDto);
 
+    @Override
+    List<BookingEntity> toEntity(List<BookingResponse> studentDtoList);
 
     @Override
-    BookingEntity toEnt(BookingResponse bookingResponse);
+    BookingResponse toDto(BookingEntity student);
+
     @Override
-    List<BookingEntity>toEntList(List<BookingResponse>bookingResponses);
-    @Override
-    BookingResponse toDto(BookingEntity bookingEntity);
-    @Override
-    List<BookingResponse>toDtoList(List<BookingEntity>bookingEntityList);
+    List<BookingResponse> toDto(List<BookingEntity> studentList);
 }

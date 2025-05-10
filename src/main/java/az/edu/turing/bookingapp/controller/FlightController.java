@@ -4,8 +4,10 @@ import az.edu.turing.bookingapp.domain.entity.FlightEntity;
 import az.edu.turing.bookingapp.model.request.FlightRequest;
 import az.edu.turing.bookingapp.model.response.FlightResponse;
 import az.edu.turing.bookingapp.service.FlightService;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/flight")
+@Validated
 public class FlightController {
     private final FlightService flightService;
 
@@ -22,9 +25,9 @@ public class FlightController {
         this.flightService = flightService;
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FlightResponse> createFlight(@RequestBody FlightRequest flight) {
-        return ResponseEntity.ok(flightService.createFlight(flight));
+    @PostMapping
+    public ResponseEntity<FlightResponse> createFlight(@Valid @RequestBody FlightRequest flightRequest) {
+        return ResponseEntity.ok(flightService.createFlight(flightRequest));
     }
 
     @GetMapping

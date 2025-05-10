@@ -1,10 +1,13 @@
 package az.edu.turing.bookingapp.model.response;
 
 
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class FlightResponse {
     private Long id;
 

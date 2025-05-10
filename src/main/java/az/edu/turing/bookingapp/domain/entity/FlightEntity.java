@@ -29,8 +29,8 @@ public class FlightEntity {
     private Long availableSeats;
     private LocalDateTime timestamp;
 
-    @OneToMany(mappedBy = "flight",cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(mappedBy = "flight",cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
     private List<BookingEntity> bookingEntityList;
 
 }

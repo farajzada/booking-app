@@ -50,7 +50,6 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public FlightResponse updateFlight(Long id, FlightRequest updatedFlight) {
         FlightEntity entity = flightDao.findById(id)
-//                .orElseThrow(() -> new RuntimeException("Flight not found with id: " + id));
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Flight not found with id: " + id));
         entity.setOrigin(updatedFlight.getOrigin());
         entity.setDestination(updatedFlight.getDestination());

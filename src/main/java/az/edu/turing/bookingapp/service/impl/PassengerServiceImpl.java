@@ -22,9 +22,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public List<PassengerResponse> findAll() {
-        List<PassengerEntity>passengerEntityList=passengerRepository.findAll();
-        return passengerEntityList.stream()
-                .map(passengerMapper::toDto).collect(Collectors.toList());
+        return passengerRepository.findAll().stream().map(passengerMapper::toDto).toList();
     }
 
     @Override

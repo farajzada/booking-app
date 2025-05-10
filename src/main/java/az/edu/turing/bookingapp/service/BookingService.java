@@ -10,7 +10,7 @@ public interface BookingService {
     public BookingResponse findByID(Long id);
     public BookingResponse saveBooking(BookingRequest bookingRequest);
     public void deleteById(Long id);
-    public BookingResponse getBookingByFlightId(Long id);
-    public void cancelBooking(Long id);
+    public List<BookingResponse> getBookingsByFlightId(Long id);
+    public boolean hasAvailableSeats(Long flightId, int requiredSeats);
 
 }

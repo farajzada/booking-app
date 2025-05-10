@@ -1,26 +1,52 @@
 package az.edu.turing.bookingapp.mapper;
 
 import az.edu.turing.bookingapp.domain.entity.BookingEntity;
+import az.edu.turing.bookingapp.domain.entity.FlightEntity;
+import az.edu.turing.bookingapp.domain.entity.PassengerEntity;
 import az.edu.turing.bookingapp.model.response.BookingResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
-@Mapper(componentModel = "spring")
-public interface BookingMapper extends EntityMapper<BookingEntity,BookingResponse> {
-
-    BookingMapper INSTANCE = Mappers.getMapper(BookingMapper.class);
+@Component
+public class BookingMapper implements EntityMapper<BookingEntity, BookingResponse> {
     @Override
-    BookingEntity toEnt(BookingResponse studentDto);
+    public BookingEntity toEnt(BookingResponse bookingResponse) {
+        return BookingEntity.builder()
+                .id(bookingResponse.getId())
+                .numberOfSeats(bookingResponse.getNumberOfSeats())
+                .flight(FlightEntity.builder()
+                        .id(bookingResponse.getFlightId())
+                        .build())
+                .passenger(PassengerEntity.builder()
+                        .id(bookingResponse.getPassengerId())
+                        .build())
+                .build();
+
+
+        //id number of seats flight id passenger id
+    }
 
     @Override
-    List<BookingEntity> toEntity(List<BookingResponse> studentDtoList);
+    public List<BookingEntity> toEntity(List<BookingResponse> dtoList) {
+        return List.of();
+    }
 
     @Override
-    BookingResponse toDto(BookingEntity student);
+    public BookingResponse toDto(BookingEntity bookingEntity) {
+        return BookingResponse.builder()
+                .id(bookingEntity.getId())
+                .numberOfSeats(bookingEntity.getNumberOfSeats())
+                .flightId(bookingEntity.getFlight().getId())
+                .passengerId(bookingEntity.getPassenger().getId())
+                .build();
+    }
 
     @Override
-    List<BookingResponse> toDtoList(List<BookingEntity> studentList);
+    public List<BookingResponse> toDtoList(List<BookingEntity> entityList) {
+        return List.of();
+    }
 }

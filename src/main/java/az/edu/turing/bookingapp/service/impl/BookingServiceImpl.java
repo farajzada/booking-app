@@ -60,16 +60,24 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void deleteById(Long id) {
+       if (!bookingRepository.existsById(id)){
+           throw new ResourceNotFoundException("booking not found with id: "+id);
+       }
+       bookingRepository.deleteById(id);
 
     }
 
     @Override
-    public BookingResponse getBookingByFlightId(Long id) {
-        return null;
+    public List<BookingResponse> getBookingsByFlightId(Long id) {
+        List<BookingEntity>bookingEntityList=bookingRepository.findByFlight_Id(id);
+        return bookingEntityList.stream().map(bookingMapper::toDto).toList();
     }
 
     @Override
-    public void cancelBooking(Long id) {
-
+    public boolean hasAvailableSeats(Long flightId, int requiredSeats) {
+        FlightEntity flight=flightRepository.findById(flightId)
+                .orElseThrow(()->new ResourceNotFoundException("flight not found with id: "+flightId ));
+        return flight.getAvailableSeats()>=requiredSeats;
     }
+
 }

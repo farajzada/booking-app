@@ -29,8 +29,7 @@ public class PassengerEntity {
     @Column(name = "passport_number")
     private String passportNumber;
 
-    @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(mappedBy = "passenger", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<BookingEntity> bookingEntityList;
 
 }

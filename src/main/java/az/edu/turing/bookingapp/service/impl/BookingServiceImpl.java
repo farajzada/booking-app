@@ -43,19 +43,39 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingResponse saveBooking(BookingRequest bookingRequest) {
+//        FlightEntity flight = flightRepository.findById(bookingRequest.getFlightId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Flight not found with id: " + bookingRequest.getFlightId()));
+//
+//        PassengerEntity passenger = passengerRepository.findById(bookingRequest.getPassengerId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Passenger not found with id: " + bookingRequest.getPassengerId()));
+//
+//        BookingEntity bookingEntity = new BookingEntity();
+//        bookingEntity.setNumberOfSeats(bookingRequest.getNumberOfSeats());
+//        bookingEntity.setFlight(flight);
+//        bookingEntity.setPassenger(passenger);
+//
+//        BookingEntity savedBooking = bookingRepository.save(bookingEntity);
+//        return bookingMapper.toDto(savedBooking);
+        System.out.println("flightId: " + bookingRequest.getFlightId());
+        System.out.println("passengerId: " + bookingRequest.getPassengerId());
+        if (bookingRequest.getFlightId() == null || bookingRequest.getPassengerId() == null) {
+            throw new IllegalArgumentException("Flight ID and Passenger ID must not be null");
+        }
+
         FlightEntity flight = flightRepository.findById(bookingRequest.getFlightId())
-                .orElseThrow(() -> new ResourceNotFoundException("Flight not found with id: " + bookingRequest.getFlightId()));
+                .orElseThrow(() -> new RuntimeException("Flight not found"));
 
         PassengerEntity passenger = passengerRepository.findById(bookingRequest.getPassengerId())
-                .orElseThrow(() -> new ResourceNotFoundException("Passenger not found with id: " + bookingRequest.getPassengerId()));
+                .orElseThrow(() -> new RuntimeException("Passenger not found"));
 
-        BookingEntity bookingEntity = new BookingEntity();
-        bookingEntity.setNumberOfSeats(bookingRequest.getNumberOfSeats());
-        bookingEntity.setFlight(flight);
-        bookingEntity.setPassenger(passenger);
+        BookingEntity booking = BookingEntity.builder()
+                .flight(flight)
+                .passenger(passenger)
+                .numberOfSeats(bookingRequest.getNumberOfSeats())
+                .build();
 
-        BookingEntity savedBooking = bookingRepository.save(bookingEntity);
-        return bookingMapper.toDto(savedBooking);
+        BookingEntity saved = bookingRepository.save(booking);
+        return bookingMapper.toDto(saved);
     }
 
     @Override

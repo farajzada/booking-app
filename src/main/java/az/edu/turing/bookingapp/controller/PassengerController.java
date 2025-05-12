@@ -8,6 +8,7 @@ import az.edu.turing.bookingapp.service.PassengerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class PassengerController {
         return ResponseEntity.ok(passengerResponse);
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PassengerResponse> createPassenger(@Valid @RequestBody PassengerRequest passengerRequest) {
         PassengerResponse createdPassenger = passengerService.save(passengerRequest);
         return new ResponseEntity<>(createdPassenger, HttpStatus.CREATED);
@@ -51,6 +52,5 @@ public class PassengerController {
         passengerService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
 
 }

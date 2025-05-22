@@ -2,6 +2,7 @@ package az.edu.turing.bookingapp.service.impl;
 
 import az.edu.turing.bookingapp.domain.entity.FlightEntity;
 import az.edu.turing.bookingapp.domain.repository.FlightRepository;
+import az.edu.turing.bookingapp.exception.ResourceNotFoundException;
 import az.edu.turing.bookingapp.mapper.FlightMapper;
 import az.edu.turing.bookingapp.model.request.FlightRequest;
 import az.edu.turing.bookingapp.model.response.FlightResponse;
@@ -31,7 +32,7 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public FlightResponse getFlightById(Long id) {
         FlightEntity entity = flightDao.findById(id)
-                .orElseThrow(() -> new RuntimeException("Flight not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Flight not found with id: " + id));
         return flightMapper.toDto(entity);
     }
 
@@ -62,7 +63,7 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public void deleteFlight(Long id) {
         if (!flightDao.existsById(id)) {
-            throw new RuntimeException("Flight not found with id: " + id);
+            throw new ResourceNotFoundException("Flight not found with id: " + id);
         }
         flightDao.deleteById(id);
     }

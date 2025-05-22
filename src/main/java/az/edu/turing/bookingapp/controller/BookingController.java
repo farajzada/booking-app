@@ -4,11 +4,9 @@ import az.edu.turing.bookingapp.model.request.BookingRequest;
 import az.edu.turing.bookingapp.model.response.BookingResponse;
 import az.edu.turing.bookingapp.service.BookingService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

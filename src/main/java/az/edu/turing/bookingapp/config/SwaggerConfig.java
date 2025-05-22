@@ -5,6 +5,6 @@ import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "FENER 5 YILDIZ ALI KOC BASKAN", version = "v1"))
+@OpenAPIDefinition(info = @Info(title = "SALAM VUSAL MUELLİM NECESİNİZ?", version = "v1"))
 public class SwaggerConfig {
 }

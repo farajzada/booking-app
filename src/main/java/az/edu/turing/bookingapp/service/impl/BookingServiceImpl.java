@@ -63,10 +63,9 @@ public class BookingServiceImpl implements BookingService {
         }
 
         FlightEntity flight = flightRepository.findById(bookingRequest.getFlightId())
-                .orElseThrow(() -> new RuntimeException("Flight not found"));
-
+                .orElseThrow(() -> new ResourceNotFoundException("Flight with ID " + bookingRequest.getFlightId() + " not found"));
         PassengerEntity passenger = passengerRepository.findById(bookingRequest.getPassengerId())
-                .orElseThrow(() -> new RuntimeException("Passenger not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Passenger not found"));
 
         BookingEntity booking = BookingEntity.builder()
                 .flight(flight)
@@ -80,24 +79,28 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void deleteById(Long id) {
-       if (!bookingRepository.existsById(id)){
-           throw new ResourceNotFoundException("booking not found with id: "+id);
-       }
-       bookingRepository.deleteById(id);
+        if (!bookingRepository.existsById(id)) {
+            throw new ResourceNotFoundException("booking not found with id: " + id);
+        }
+        bookingRepository.deleteById(id);
 
     }
 
     @Override
     public List<BookingResponse> getBookingsByFlightId(Long id) {
-        List<BookingEntity>bookingEntityList=bookingRepository.findByFlight_Id(id);
+        List<BookingEntity> bookingEntityList = bookingRepository.findByFlight_Id(id);
+
+        if (bookingEntityList == null || bookingEntityList.isEmpty()) {
+            throw new ResourceNotFoundException("No bookings found for flight ID: " + id);
+        }
         return bookingEntityList.stream().map(bookingMapper::toDto).toList();
     }
 
     @Override
     public boolean hasAvailableSeats(Long flightId, int requiredSeats) {
-        FlightEntity flight=flightRepository.findById(flightId)
-                .orElseThrow(()->new ResourceNotFoundException("flight not found with id: "+flightId ));
-        return flight.getAvailableSeats()>=requiredSeats;
+        FlightEntity flight = flightRepository.findById(flightId)
+                .orElseThrow(() -> new ResourceNotFoundException("flight not found with id: " + flightId));
+        return flight.getAvailableSeats() >= requiredSeats;
     }
 
 }
